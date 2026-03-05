@@ -1,0 +1,16 @@
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import { Link } from 'react-router-dom';
+import { useLanguage } from '../hooks/useLanguage';
+import { useCart } from '../hooks/useCart';
+import { X, ShoppingCart as CartIcon } from 'lucide-react';
+const CartDrawer = ({ isOpen, onClose }) => {
+    const { language } = useLanguage();
+    const { cart, totalPrice } = useCart();
+    const isRTL = language === 'ar';
+    return (_jsxs(_Fragment, { children: [isOpen && (_jsx("div", { className: "fixed inset-0 z-40 bg-black/30", onClick: onClose })), _jsxs("div", { className: `fixed top-0 z-50 h-full w-full max-w-sm bg-white dark:bg-bala-dark-surface transform transition-transform duration-300 ${isOpen
+                    ? 'translate-x-0'
+                    : isRTL
+                        ? 'translate-x-full'
+                        : '-translate-x-full'} ${isRTL ? 'right-0' : 'left-0'}`, children: [_jsxs("div", { className: `flex items-center justify-between p-6 border-b border-bala-brown/10 dark:border-bala-dark-green/20 ${isRTL ? 'flex-row-reverse' : ''}`, children: [_jsx("h2", { className: "font-display text-2xl font-bold text-bala-forest dark:text-bala-cream", children: language === 'ar' ? 'السلة' : 'Cart' }), _jsx("button", { onClick: onClose, className: "p-2 hover:bg-bala-forest/10 dark:hover:bg-bala-dark-green/20 rounded-bala transition-colors", children: _jsx(X, { size: 24, className: "text-bala-forest dark:text-bala-cream" }) })] }), cart.length > 0 ? (_jsxs(_Fragment, { children: [_jsx("div", { className: "flex-1 overflow-y-auto p-6 space-y-4", children: cart.map(item => (_jsxs("div", { className: "flex gap-4", children: [_jsx("img", { src: item.image, alt: item.name, className: "w-16 h-16 object-cover rounded-bala" }), _jsxs("div", { className: "flex-1", children: [_jsx("p", { className: "font-display font-bold text-bala-forest dark:text-bala-cream text-sm", children: item.name }), _jsxs("p", { className: "font-body text-xs text-bala-brown dark:text-bala-cream/70", children: ["\u00D7", item.quantity] }), _jsx("p", { className: "font-display font-bold text-bala-gold text-sm", children: item.price * item.quantity })] })] }, item.id))) }), _jsxs("div", { className: "border-t border-bala-brown/10 dark:border-bala-dark-green/20 p-6 space-y-4", children: [_jsxs("div", { className: `flex justify-between font-display font-bold text-bala-forest dark:text-bala-cream ${isRTL ? 'flex-row-reverse' : ''}`, children: [_jsx("span", { children: language === 'ar' ? 'الإجمالي' : 'Total' }), _jsx("span", { className: "text-bala-gold", children: totalPrice })] }), _jsx(Link, { to: "/cart", onClick: onClose, className: "block w-full py-3 bg-bala-forest dark:bg-bala-dark-green text-white rounded-bala font-body font-bold text-center hover:shadow-bala-hover transition-all", children: language === 'ar' ? 'مراجعة السلة' : 'View Cart' })] })] })) : (_jsxs("div", { className: "flex flex-col items-center justify-center h-full", children: [_jsx(CartIcon, { size: 48, className: "text-bala-brown/30 dark:text-bala-cream/30 mb-4" }), _jsx("p", { className: "font-body text-bala-brown dark:text-bala-cream/70 text-center", children: language === 'ar' ? 'السلة فارغة' : 'Your cart is empty' })] }))] })] }));
+};
+export default CartDrawer;
