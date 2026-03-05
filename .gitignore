@@ -22,3 +22,14 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+# deps / build
+node_modules
+dist
+.vite
+*.tsbuildinfo
+
+# generated / compiled files inside src (لازم)
+src/**/*.d.ts
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts.map
