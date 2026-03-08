@@ -222,9 +222,7 @@ const Home: React.FC = () => {
         data-reveal
         id="chocolate"
         className={`py-20 sm:py-32 px-4 sm:px-6 lg:px-8 ${
-          revealedSections.has("chocolate")
-            ? "animate-fade-in-up"
-            : "opacity-0"
+          revealedSections.has("chocolate") ? "animate-fade-in-up" : "opacity-0"
         }`}
       >
         <div className="max-w-bala mx-auto">
@@ -338,9 +336,7 @@ const Home: React.FC = () => {
         data-reveal
         id="locations"
         className={`py-20 sm:py-32 px-4 sm:px-6 lg:px-8 bg-bala-cream dark:bg-bala-dark-bg ${
-          revealedSections.has("locations")
-            ? "animate-fade-in-up"
-            : "opacity-0"
+          revealedSections.has("locations") ? "animate-fade-in-up" : "opacity-0"
         }`}
       >
         <div className="max-w-bala mx-auto">
@@ -351,18 +347,11 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
-                arName: "الفرع الرئيسي - الرياض",
-                enName: "Main Branch - Riyadh",
-                arAddr: "شارع التنين، حي الملز، الرياض",
-                enAddr: "Dragon Street, Al-Malaz District, Riyadh",
-                hours: "9am - 10pm",
-              },
-              {
-                arName: "فرع جدة",
-                enName: "Jeddah Branch",
-                arAddr: "شارع الأمير محمد بن عبدالعزيز، جدة",
-                enAddr: "Prince Muhammad St, Jeddah",
-                hours: "10am - 11pm",
+                arName: "فرع بني سويف - الكورنيش",
+                enName: "Beni Suef Branch - Corniche",
+                arAddr: "كورنيش النيل، بني سويف",
+                enAddr: "Nile Corniche, Beni Suef",
+                hours: "9am - 12am",
               },
             ].map((loc, idx) => (
               <div
