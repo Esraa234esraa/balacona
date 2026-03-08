@@ -5,10 +5,9 @@ import ProductCard from "../components/ProductCard";
 import { menuItems } from "../data/menuData";
 import { ChevronRight, MapPin, Clock } from "lucide-react";
 import { FeatureSplitCard } from "../components/FeatureSplitCard";
-import img1 from "../assets/img1.jpg";
-import img2 from "../assets/img2.jpg";
-import HeroCarousel from "../components/HeroCarousel.jsx";
 import HomePromoGrid from "./HomePromoGrid";
+import HeroCarousel from "../components/HeroCarousel";
+
 const Home: React.FC = () => {
   const { language } = useLanguage();
   const [revealedSections, setRevealedSections] = useState<Set<string>>(
@@ -19,14 +18,17 @@ const Home: React.FC = () => {
   const signatureDrinks = menuItems
     .filter((item) => item.popular && item.category === "espresso")
     .slice(0, 4);
+
   const chocolates = menuItems
     .filter(
       (item) => item.category === "chocolate" || item.category === "desserts",
     )
     .slice(0, 4);
+
   const bakeryItems = menuItems
     .filter((item) => item.category === "bakery")
     .slice(0, 4);
+
   const featuredOffers = [
     {
       title: "عروض البلكونة المميزة",
@@ -34,7 +36,7 @@ const Home: React.FC = () => {
         "خصومات حصرية على القهوة والحلويات لفترة محدودة. اختاري العرض المناسب واطلبي بسهولة.",
       ctaText: "شوف العروض",
       ctaTo: "/offers",
-      imageSrc: img1,
+      imageSrc: "/images/img1.jpg",
       badge: "عرض مميز",
     },
     {
@@ -42,7 +44,7 @@ const Home: React.FC = () => {
       description: "تجربة كاملة بطابع البلكونة — طعم فاخر وإحساس رايق.",
       ctaText: "اطلب من المنيو",
       ctaTo: "/menu",
-      imageSrc: img2,
+      imageSrc: "/images/img2.jpg",
       badge: "Limited",
     },
   ];
@@ -53,7 +55,7 @@ const Home: React.FC = () => {
       description: "مزيج ناعم بطعم كراميل متوازن… اختيار العملاء رقم 1.",
       ctaText: "اطلبي الآن",
       ctaTo: "/menu",
-      imageSrc: img1,
+      imageSrc: "/images/img1.jpg",
       badge: "الأكثر مبيعاً",
     },
     {
@@ -61,10 +63,11 @@ const Home: React.FC = () => {
       description: "شوكولاتة غنية ودافية… المزاج الحقيقي.",
       ctaText: "اطلبي الآن",
       ctaTo: "/menu",
-      imageSrc: img2,
+      imageSrc: "/images/img2.jpg",
       badge: "الأكثر مبيعاً",
     },
   ];
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -80,14 +83,14 @@ const Home: React.FC = () => {
     document
       .querySelectorAll("[data-reveal]")
       .forEach((el) => observer.observe(el));
+
     return () => observer.disconnect();
   }, []);
 
   return (
     <div className={`${isRTL ? "rtl" : "ltr"}`}>
-      {/* Hero - multi-slide carousel */}
       <HeroCarousel language={language} />
-      {/* About Section */}
+
       <section
         data-reveal
         id="about"
@@ -99,6 +102,7 @@ const Home: React.FC = () => {
           <h2 className="font-display text-3xl sm:text-5xl font-bold text-bala-forest dark:text-bala-cream mb-12 text-center">
             {language === "ar" ? "عن التجربة" : "About the Experience"}
           </h2>
+
           <p className="font-body text-lg text-bala-brown dark:text-bala-cream/70 max-w-3xl mx-auto text-center leading-relaxed mb-16">
             {language === "ar"
               ? "في Balacona، نعتقد أن القهوة والشوكولاتة ليست مجرد مشروبات، بل لحظات من الفرح والهدوء."
@@ -141,13 +145,13 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-      {/* HomePromoGrid */}
+
       <HomePromoGrid />
-      {/* Signature Drinks */}
+
       <section
         data-reveal
         id="signature"
-        className={`py-20 sm:py-32 px-4 sm:px-6 lg:px dark:bg-bala-dark-bg ${
+        className={`py-20 sm:py-32 px-4 sm:px-6 lg:px-8 dark:bg-bala-dark-bg ${
           revealedSections.has("signature") ? "animate-fade-in-up" : "opacity-0"
         }`}
       >
@@ -158,17 +162,20 @@ const Home: React.FC = () => {
             </h2>
             <Link
               to="/menu"
-              className={`flex items-center gap-2 text-bala-gold hover:text-bala-brown dark:hover:text-bala-gold transition-colors font-body font-bold ${isRTL ? "flex-row-reverse" : ""}`}
+              className={`flex items-center gap-2 text-bala-gold hover:text-bala-brown dark:hover:text-bala-gold transition-colors font-body font-bold ${
+                isRTL ? "flex-row-reverse" : ""
+              }`}
             >
               {language === "ar" ? "عرض الكل" : "View All"}
               <ChevronRight size={20} className={isRTL ? "rotate-180" : ""} />
             </Link>
           </div>
+
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {signatureDrinks.map((item, idx) => (
               <div
                 key={item.id}
-                className={`animate-fade-in-up`}
+                className="animate-fade-in-up"
                 style={{ animationDelay: `${idx * 100}ms` }}
               >
                 <ProductCard item={item} />
@@ -177,7 +184,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-      {/* Bakery Section - المخبوزات */}
+
       {bakeryItems.length > 0 && (
         <section
           data-reveal
@@ -195,11 +202,12 @@ const Home: React.FC = () => {
                 ? "مخبوزات طازجة تطلع من الفرن على الطاولة"
                 : "Freshly baked goods served warm from our oven."}
             </p>
+
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {bakeryItems.map((item, idx) => (
                 <div
                   key={item.id}
-                  className={`animate-fade-in-up`}
+                  className="animate-fade-in-up"
                   style={{ animationDelay: `${idx * 100}ms` }}
                 >
                   <ProductCard item={item} />
@@ -209,12 +217,14 @@ const Home: React.FC = () => {
           </div>
         </section>
       )}
-      {/* Chocolate & Desserts */}
+
       <section
         data-reveal
         id="chocolate"
         className={`py-20 sm:py-32 px-4 sm:px-6 lg:px-8 ${
-          revealedSections.has("chocolate") ? "animate-fade-in-up" : "opacity-0"
+          revealedSections.has("chocolate")
+            ? "animate-fade-in-up"
+            : "opacity-0"
         }`}
       >
         <div className="max-w-bala mx-auto">
@@ -223,16 +233,18 @@ const Home: React.FC = () => {
               ? "الشوكولاتة والحلويات"
               : "Chocolate & Desserts"}
           </h2>
+
           <p className="font-body text-lg text-bala-brown dark:text-bala-cream/70 text-center mb-12 max-w-2xl mx-auto">
             {language === "ar"
               ? "تجربة حسية لا تُنسى مع تشكيلتنا المميزة من الشوكولاتة الفاخرة"
               : "An unforgettable experience with our curated selection of premium chocolate"}
           </p>
+
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {chocolates.map((item, idx) => (
               <div
                 key={item.id}
-                className={`animate-fade-in-up`}
+                className="animate-fade-in-up"
                 style={{ animationDelay: `${idx * 100}ms` }}
               >
                 <ProductCard item={item} />
@@ -241,7 +253,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-      {/* Featured Offers */}
+
       <section
         id="featured-offers"
         className="py-16 sm:py-20 bg-bala-cream dark:bg-bala-dark-bg"
@@ -281,7 +293,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-      {/* Best Sellers */}
+
       <section
         id="best-sellers"
         className="py-16 sm:py-20 bg-white dark:bg-bala-dark-surface"
@@ -321,18 +333,21 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-      {/* Locations */}
+
       <section
         data-reveal
         id="locations"
         className={`py-20 sm:py-32 px-4 sm:px-6 lg:px-8 bg-bala-cream dark:bg-bala-dark-bg ${
-          revealedSections.has("locations") ? "animate-fade-in-up" : "opacity-0"
+          revealedSections.has("locations")
+            ? "animate-fade-in-up"
+            : "opacity-0"
         }`}
       >
         <div className="max-w-bala mx-auto">
           <h2 className="font-display text-3xl sm:text-5xl font-bold text-bala-forest dark:text-bala-cream mb-12 text-center">
             {language === "ar" ? "زورنا" : "Visit Us"}
           </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
@@ -370,7 +385,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-      {/* Newsletter */}
+
       <section
         data-reveal
         id="newsletter"
@@ -390,6 +405,7 @@ const Home: React.FC = () => {
                 ? "احصل على أحدث العروض والمشروبات الجديدة مباشرة إلى بريدك الإلكتروني"
                 : "Get the latest offers and new drinks delivered straight to your inbox"}
             </p>
+
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input
                 type="email"

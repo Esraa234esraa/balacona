@@ -1,7 +1,7 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, type HTMLMotionProps } from "framer-motion";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends HTMLMotionProps<"button"> {
   variant?: "primary" | "secondary" | "danger" | "outline";
   size?: "sm" | "md" | "lg";
   isLoading?: boolean;
@@ -16,6 +16,7 @@ export const Button: React.FC<ButtonProps> = ({
   children,
   icon,
   className = "",
+  disabled,
   ...props
 }) => {
   const baseClasses =
@@ -34,16 +35,13 @@ export const Button: React.FC<ButtonProps> = ({
     lg: "px-8 py-4 text-lg",
   };
 
-  // ✅ التعديل هنا: شيل onDrag (بتاعة HTML) علشان متتعارضش مع framer-motion
-  const { onDrag, disabled, ...safeProps } = props;
-
   return (
     <motion.button
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
       disabled={disabled || isLoading}
-      {...safeProps}
+      {...props}
     >
       {isLoading ? (
         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current" />

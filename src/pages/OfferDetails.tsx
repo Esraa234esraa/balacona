@@ -62,7 +62,6 @@ const OfferDetails: React.FC = () => {
         name,
         price: product.price,
         quantity,
-        size: "M",
         image: product.image,
       });
     });

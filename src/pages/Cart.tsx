@@ -69,9 +69,7 @@ const Cart: React.FC = () => {
                   <h3 className="font-display text-lg font-bold text-bala-forest dark:text-bala-cream mb-2">
                     {item.name}
                   </h3>
-                  <p className="font-body text-sm text-bala-brown dark:text-bala-cream/70 mb-3">
-                    {language === 'ar' ? 'الحجم' : 'Size'}: {item.size}
-                  </p>
+                 
                   <p className="font-display text-lg font-bold text-bala-gold">
                     {item.price} {language === 'ar' ? 'ج' : 'SAR'}
                   </p>

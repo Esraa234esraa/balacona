@@ -1,17 +1,36 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
 
-export default function HeroCarousel({ language = "en" }) {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [autoPlay, setAutoPlay] = useState(true);
-  const [dragStartX, setDragStartX] = useState(null);
-  const [isDragging, setIsDragging] = useState(false);
+type Language = "ar" | "en";
+
+type Slide = {
+  id: number;
+  image: string;
+  titleAr: string;
+  titleEn: string;
+  descAr: string;
+  descEn: string;
+  cta: string;
+  ctaTarget: string;
+  scrollLabelAr: string;
+  scrollLabelEn: string;
+};
+
+type HeroCarouselProps = {
+  language?: Language;
+};
+
+export default function HeroCarousel({
+  language = "en",
+}: HeroCarouselProps): React.JSX.Element {
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const [autoPlay, setAutoPlay] = useState<boolean>(true);
+  const [dragStartX, setDragStartX] = useState<number | null>(null);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
 
   const isRTL = language === "ar";
 
-  // بيانات الـ Slides - مشروبات / مخبوزات / حلويات
-  const slides = [
+  const slides: Slide[] = [
     {
       id: 1,
       image: "/hero-1.webp",
@@ -20,7 +39,7 @@ export default function HeroCarousel({ language = "en" }) {
       descAr: "مشروبات متقنة وقهوة بنكهات مختلفة تناسب كل مزاج",
       descEn: "Crafted drinks and coffee for every mood.",
       cta: "explore",
-      ctaTarget: "signature", // يقفز لسيكشن المشروبات
+      ctaTarget: "signature",
       scrollLabelAr: "شوف المشروبات",
       scrollLabelEn: "See drinks",
     },
@@ -32,7 +51,7 @@ export default function HeroCarousel({ language = "en" }) {
       descAr: "كرواسون، بان، ومخبوزات محشية تتاكل وهي لسه طالعة",
       descEn: "Croissants, buns, and fresh-baked goods served warm.",
       cta: "menu",
-      ctaTarget: "bakery", // يقفز لسيكشن المخبوزات
+      ctaTarget: "bakery",
       scrollLabelAr: "شوف المخبوزات",
       scrollLabelEn: "See bakery",
     },
@@ -44,57 +63,51 @@ export default function HeroCarousel({ language = "en" }) {
       descAr: "تشيزكيك، براونيز، وشوكولاتة تعلي مود اليوم كله",
       descEn: "Cheesecakes, brownies, and chocolate to sweeten your day.",
       cta: "menu",
-      ctaTarget: "chocolate", // يقفز لسيكشن الحلويات
+      ctaTarget: "chocolate",
       scrollLabelAr: "شوف الحلويات",
       scrollLabelEn: "See desserts",
     },
   ];
 
-  // Auto-play functionality
   useEffect(() => {
     if (!autoPlay) return;
 
-    const interval = setInterval(() => {
+    const interval = window.setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000); // تغيير الصورة كل 5 ثوان
+    }, 5000);
 
-    return () => clearInterval(interval);
+    return () => window.clearInterval(interval);
   }, [autoPlay, slides.length]);
 
-  const nextSlide = () => {
+  const nextSlide = (): void => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
     setAutoPlay(false);
   };
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) =>
-      prev === 0 ? slides.length - 1 : prev - 1
-    );
+  const prevSlide = (): void => {
+    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
     setAutoPlay(false);
   };
 
-  const goToSlide = (index) => {
+  const goToSlide = (index: number): void => {
     setCurrentSlide(index);
     setAutoPlay(false);
   };
 
-  // سحب بالماوس/التاتش للتنقل بين السلايدات
-  const handlePointerDown = (clientX) => {
+  const handlePointerDown = (clientX: number): void => {
     setDragStartX(clientX);
     setIsDragging(true);
     setAutoPlay(false);
   };
 
-  const handlePointerUp = (clientX) => {
+  const handlePointerUp = (clientX: number): void => {
     if (!isDragging || dragStartX === null) return;
 
     const deltaX = clientX - dragStartX;
 
     if (deltaX > 50) {
-      // سحب لليمين → سلايد قبلي
       prevSlide();
     } else if (deltaX < -50) {
-      // سحب لليسار → سلايد بعده
       nextSlide();
     }
 
@@ -103,36 +116,38 @@ export default function HeroCarousel({ language = "en" }) {
     setAutoPlay(true);
   };
 
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>): void => {
     handlePointerDown(e.clientX);
   };
 
-  const handleMouseUp = (e) => {
+  const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>): void => {
     handlePointerUp(e.clientX);
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = (): void => {
     if (!isDragging) return;
     setDragStartX(null);
     setIsDragging(false);
     setAutoPlay(true);
   };
 
-  const handleTouchStart = (e) => {
-    if (e.touches && e.touches[0]) {
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>): void => {
+    if (e.touches[0]) {
       handlePointerDown(e.touches[0].clientX);
     }
   };
 
-  const handleTouchEnd = (e) => {
-    if (e.changedTouches && e.changedTouches[0]) {
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>): void => {
+    if (e.changedTouches[0]) {
       handlePointerUp(e.changedTouches[0].clientX);
     }
   };
 
   const currentSlideData = slides[currentSlide];
-  const title = language === "ar" ? currentSlideData.titleAr : currentSlideData.titleEn;
-  const description = language === "ar" ? currentSlideData.descAr : currentSlideData.descEn;
+  const title =
+    language === "ar" ? currentSlideData.titleAr : currentSlideData.titleEn;
+  const description =
+    language === "ar" ? currentSlideData.descAr : currentSlideData.descEn;
 
   return (
     <section
@@ -143,7 +158,6 @@ export default function HeroCarousel({ language = "en" }) {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Slides Container */}
       <div className="relative w-full h-full">
         {slides.map((slide, index) => (
           <div
@@ -152,19 +166,15 @@ export default function HeroCarousel({ language = "en" }) {
               index === currentSlide ? "opacity-100" : "opacity-0"
             }`}
           >
-            {/* Background Image */}
             <div
               className="absolute inset-0 bg-center bg-cover bg-no-repeat scale-105"
               style={{ backgroundImage: `url("${slide.image}")` }}
             />
 
-            {/* Dark Overlay */}
             <div className="absolute inset-0 bg-black/40 dark:bg-black/65 backdrop-brightness-75" />
 
-            {/* Golden Gradient Light */}
             <div className="absolute inset-0 bg-gradient-to-b from-bala-gold/20 via-transparent to-black/60" />
 
-            {/* Content */}
             <div className="relative z-10 w-full h-full flex items-center justify-center">
               <div className="max-w-3xl px-6 text-center">
                 <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-lg animate-fadeInUp">
@@ -200,15 +210,15 @@ export default function HeroCarousel({ language = "en" }) {
         ))}
       </div>
 
-      {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
         onMouseEnter={() => setAutoPlay(false)}
         onMouseLeave={() => setAutoPlay(true)}
         className={`hidden md:flex absolute top-1/2 ${
           isRTL ? "right-6" : "left-6"
-        } z-20 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm`}
+        } z-20 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm`}
         aria-label="Previous slide"
+        type="button"
       >
         <ChevronLeft size={28} />
       </button>
@@ -219,14 +229,14 @@ export default function HeroCarousel({ language = "en" }) {
         onMouseLeave={() => setAutoPlay(true)}
         className={`hidden md:flex absolute top-1/2 ${
           isRTL ? "left-6" : "right-6"
-        } z-20 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm`}
+        } z-20 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm`}
         aria-label="Next slide"
+        type="button"
       >
         <ChevronRight size={28} />
       </button>
 
-      {/* Dot Navigation */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex gap-3">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
         {slides.map((_, index) => (
           <button
             key={index}
@@ -237,11 +247,11 @@ export default function HeroCarousel({ language = "en" }) {
                 : "bg-white/50 hover:bg-white/75 w-2.5 h-2.5"
             }`}
             aria-label={`Go to slide ${index + 1}`}
+            type="button"
           />
         ))}
       </div>
 
-      {/* Slide Counter */}
       <div className="absolute top-8 right-8 z-20 text-white text-sm font-semibold bg-black/40 px-4 py-2 rounded-full backdrop-blur-sm">
         {currentSlide + 1} / {slides.length}
       </div>

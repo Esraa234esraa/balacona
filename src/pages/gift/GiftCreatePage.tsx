@@ -4,12 +4,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { createGiftCode, createGiftId, GiftCard } from "../../features/gift/giftStorage";
 import { designs } from "./GiftPage";
 
-type Design = {
-  id: string;
-  title: string;
-  category: string;
-  image?: string;
-};
+// type Design = {
+//   id: string;
+//   title: string;
+//   category: string;
+//   image?: string;
+// };
 
 const presets = [250, 500, 1000, 1500];
 
