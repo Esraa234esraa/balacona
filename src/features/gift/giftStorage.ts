@@ -1,7 +1,7 @@
 // src/features/gift/giftStorage.ts
 export type GiftCard = {
   id: string;
-  image: string;
+  image?: string;
   code: string;
   amount: number;
   balance: number;

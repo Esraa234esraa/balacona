@@ -13,7 +13,7 @@ const Profile: React.FC = () => {
     return stored ? JSON.parse(stored) : null;
   });
 
-  const [orders, setOrders] = useState(() => {
+  const [orders] = useState(() => {
     const stored = localStorage.getItem('bala-orders');
     return stored ? JSON.parse(stored) : [];
   });
@@ -84,7 +84,7 @@ const Profile: React.FC = () => {
 
             {orders.length > 0 ? (
               <div className="space-y-6">
-                {orders.map((order: any, idx: number) => (
+                {orders.map((order, idx: number) => (
                   <div
                     key={idx}
                     className="bg-white dark:bg-bala-dark-surface rounded-bala p-6 shadow-bala-light dark:shadow-bala-dark hover:shadow-bala-hover transition-all"
@@ -104,7 +104,7 @@ const Profile: React.FC = () => {
                     </div>
 
                     <div className={`space-y-2 mb-4 pb-4 border-b border-bala-brown/10 dark:border-bala-dark-green/20 ${isRTL ? 'text-right' : ''}`}>
-                      {order.items.map((item: any, i: number) => (
+                      {order.items.map((item:any, i: number) => (
                         <p key={i} className="font-body text-sm text-bala-brown dark:text-bala-cream/70">
                           • {item.name} × {item.quantity}
                         </p>
