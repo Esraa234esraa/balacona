@@ -77,7 +77,7 @@ const OfferDetails: React.FC = () => {
       : offer.type === "fixed"
       ? language === "ar"
         ? `خصم ${offer.value} ج`
-        : `${offer.value} SAR off`
+        : `${offer.value} EGP off`
       : language === "ar"
       ? `اشتري واحصل على ${offer.value} مجانًا`
       : `Buy & get ${offer.value} free`;

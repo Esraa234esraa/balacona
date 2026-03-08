@@ -71,7 +71,7 @@ const Cart: React.FC = () => {
                   </h3>
                  
                   <p className="font-display text-lg font-bold text-bala-gold">
-                    {item.price} {language === 'ar' ? 'ج' : 'SAR'}
+                    {item.price} {language === 'ar' ? 'ج' : 'EGP'}
                   </p>
                 </div>
 
@@ -136,17 +136,17 @@ const Cart: React.FC = () => {
               <div className="space-y-3 border-t border-bala-brown/10 dark:border-bala-dark-green/20 pt-6 mb-8">
                 <div className={`flex justify-between font-body text-bala-brown dark:text-bala-cream/70 ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <span>{language === 'ar' ? 'المجموع الجزئي' : 'Subtotal'}</span>
-                  <span>{totalPrice} {language === 'ar' ? 'ج' : 'SAR'}</span>
+                  <span>{totalPrice} {language === 'ar' ? 'ج' : 'EGP'}</span>
                 </div>
                 {discount > 0 && (
                   <div className={`flex justify-between font-body text-green-600 ${isRTL ? 'flex-row-reverse' : ''}`}>
                     <span>{language === 'ar' ? 'الخصم' : 'Discount'}</span>
-                    <span>-{discount} {language === 'ar' ? 'ج' : 'SAR'}</span>
+                    <span>-{discount} {language === 'ar' ? 'ج' : 'EGP'}</span>
                   </div>
                 )}
                 <div className={`flex justify-between font-display text-xl font-bold text-bala-forest dark:text-bala-cream pt-4 border-t border-bala-brown/10 dark:border-bala-dark-green/20 ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <span>{language === 'ar' ? 'الإجمالي' : 'Total'}</span>
-                  <span className="text-bala-gold">{finalTotal} {language === 'ar' ? 'ج' : 'SAR'}</span>
+                  <span className="text-bala-gold">{finalTotal} {language === 'ar' ? 'ج' : 'EGP'}</span>
                 </div>
               </div>
 

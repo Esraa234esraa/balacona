@@ -104,7 +104,7 @@ const ProductDetails: React.FC = () => {
               </h1>
 
               <p className="text-4xl sm:text-5xl font-display font-bold text-bala-gold mb-6">
-                {product.price} {language === "ar" ? "ج" : "SAR"}
+                {product.price} {language === "ar" ? "ج" : "EGP"}
               </p>
 
               <p className="font-body text-lg sm:text-xl leading-8 text-bala-brown dark:text-bala-cream/70 max-w-xl mx-auto mb-10">

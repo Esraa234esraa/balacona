@@ -185,7 +185,7 @@ const Checkout: React.FC = () => {
                       {item.name} × {item.quantity}
                     </span>
                     <span className="font-bold text-bala-forest dark:text-bala-cream">
-                      {item.price * item.quantity} {language === 'ar' ? 'ج' : 'SAR'}
+                      {item.price * item.quantity} {language === 'ar' ? 'ج' : 'EGP'}
                     </span>
                   </div>
                 ))}
@@ -193,7 +193,7 @@ const Checkout: React.FC = () => {
 
               <div className={`flex justify-between font-display text-2xl font-bold text-bala-gold ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <span>{language === 'ar' ? 'الإجمالي' : 'Total'}</span>
-                <span>{totalPrice} {language === 'ar' ? 'ج' : 'SAR'}</span>
+                <span>{totalPrice} {language === 'ar' ? 'ج' : 'EGP'}</span>
               </div>
             </div>
           </div>

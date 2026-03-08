@@ -121,7 +121,7 @@ const Profile: React.FC = () => {
                         </p>
                       </div>
                       <span className="text-bala-gold font-display font-bold">
-                        {order.total} {language === "ar" ? "ج" : "SAR"}
+                        {order.total} {language === "ar" ? "ج" : "EGP"}
                       </span>
                     </div>
 

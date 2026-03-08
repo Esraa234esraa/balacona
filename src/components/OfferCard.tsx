@@ -34,7 +34,7 @@
 
 //   const offerLabel = {
 //     percentage: `خصم ${offer.value}%`,
-//     fixed: `خصم ${offer.value} ريال`,
+//     fixed: `خصم ${offer.value} جنية`,
 //     buy_get: `اشتري واحصل على ${offer.value}`,
 //   };
 
